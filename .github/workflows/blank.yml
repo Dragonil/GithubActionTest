@@ -21,16 +21,17 @@ jobs:
       - name: Set up containerd
         uses: crazy-max/ghaction-setup-containerd@v2
         
-      - name: Build Docker image
-        uses: docker/build-push-action@v3
-        with:
-          platforms: linux/amd64,linux/arm64
-          tags: jfrog.dev.hub.vwgroup.com/amt-docker-internal/github.com-test/artifactory:1.0
-          outputs: type=oci,dest=/tmp/image.tar
-          
       - name: Import image in containerd
         run: |
-          sudo ctr i import --base-name docker.io/user/app --digests --all-platforms /tmp/image.tar
+          sudo ctr image pull releases-docker.jfrog.io/jfrog/artifactory-pro:7.46.6
+       
+      - name: List Images
+        run: |
+          sudo ctr images
+          
+      - name: Import tag in containerd
+        run: |
+          sudo ctr tag artifactory-pro:7.46.6 jfrog.dev.hub.vwgroup.com/amt-docker-internal/github.com-test/artifactory:1.0
       - name: Push image with containerd
         run: |
           sudo ctr --debug i push --user "${{ secrets.JFROG_DEPLOY_USER }}:${{ secrets.JFROG_DEPLOY_TOKEN }}" jfrog.dev.hub.vwgroup.com/amt-docker-internal/github.com-test/artifactory:1.0
