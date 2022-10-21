@@ -15,12 +15,19 @@ jobs:
     #- name: login to Jfrog registry
     #  run: |
     #    ctr login -u ${{ secrets.JFROG_DEPLOY_USER }} -p ${{ secrets.JFROG_DEPLOY_TOKEN }} --tls-verify=false jfrog.dev.hub.vwgroup.com
-    - name: Build the image (TAG specified as input)
-      run: |
-        sudo ctr build \
-          -t jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0 \
-          --format=docker \
-          -f Dockerfile .
+    #- name: Build the image (TAG specified as input)
+    #  run: |
+    #    sudo ctr build \
+    #      -t jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0 \
+    #      --format=docker \
+    #      -f Dockerfile .
+      
+    - name: Run buildah push
+      run: sudo ctr --debug i pull releases-docker.jfrog.io/jfrog/artifactory-pro:7.46.6
+    
+    - name: Run tag image
+      run: sudo ctr --debug i tag releases-docker.jfrog.io/jfrog/artifactory-pro:7.46.6 jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0
+    
     - name: List the docker images
       run: sudo ctr images ls
       
