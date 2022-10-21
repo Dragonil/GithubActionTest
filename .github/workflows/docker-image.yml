@@ -26,7 +26,6 @@ jobs:
       run: |
         docker build \
           -t jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0 \
-          --format=docker \
           -f Dockerfile .
           
     - name: List the docker images
