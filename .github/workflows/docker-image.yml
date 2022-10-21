@@ -18,11 +18,11 @@ jobs:
     - name: Build the image (TAG specified as input)
       run: |
         podman build \
-          -t jfrog.dev.hub.vwgroup.com/amt-docker-releases/github.com-test/artifactory:1.0 \
+          -t jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0 \
           --format=docker \
           -f Dockerfile .
     - name: List the docker images
       run: podman images
       
     - name: Run buildah push
-      run: podman push "jfrog.dev.hub.vwgroup.com/amt-docker-releases/github.com-test/artifactory:1.0"
+      run: podman push --log-level=debug jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0
