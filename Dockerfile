@@ -1,4 +1,4 @@
-FROM jfrog.dev.hub.vwgroup.com/remote-jfrog-releases/jfrog/artifactory-pro:7.46.6
+FROM releases-docker.jfrog.io/jfrog/artifactory-pro:7.46.6
 USER root
 RUN mkdir -p /.config/jgit
 RUN  \
