@@ -14,15 +14,15 @@ jobs:
 
     - name: login to Jfrog registry
       run: |
-        buildah login -u ${{ secrets.JFROG_DEPLOY_USER }} -p ${{ secrets.JFROG_DEPLOY_TOKEN }} --tls-verify=false jfrog.dev.hub.vwgroup.com
+        podman login -u ${{ secrets.JFROG_DEPLOY_USER }} -p ${{ secrets.JFROG_DEPLOY_TOKEN }} --tls-verify=false jfrog.dev.hub.vwgroup.com
     - name: Build the image (TAG specified as input)
       run: |
-        buildah build \
+        podman build \
           -t jfrog.dev.hub.vwgroup.com/amt-docker-releases/github.com-test/artifactory:1.0 \
           --format=docker \
           -f Dockerfile .
     - name: List the docker images
-      run: buildah images
+      run: podman images
       
     - name: Run buildah push
-      run:  buildah push "jfrog.dev.hub.vwgroup.com/amt-docker-releases/github.com-test/artifactory:1.0"
+      run: podman push "jfrog.dev.hub.vwgroup.com/amt-docker-releases/github.com-test/artifactory:1.0"
