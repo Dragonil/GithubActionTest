@@ -22,7 +22,6 @@ jobs:
         uses: docker/build-push-action@v2.4.0
         with:
           file: Dockerfile
-          context: .
           build-args: |
             BUILD_DIR=build
           push: true
