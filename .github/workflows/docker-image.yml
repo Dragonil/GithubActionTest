@@ -29,7 +29,7 @@ jobs:
           -f Dockerfile .
           
     - name: List the docker images
-      run: docker images
+      run: sudo ctr images ls
 
     - name: Run buildah push
       run: docker push "jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0"
