@@ -1,0 +1,28 @@
+name: Build and push JPD images
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  docker_build:
+
+    runs-on: [ buildah ]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: login to Jfrog registry
+      run: |
+        buildah login -u ${{ secrets.JFROG_DEPLOY_USER }} -p ${{ secrets.JFROG_DEPLOY_TOKEN }} --tls-verify=false jfrog.dev.hub.vwgroup.com
+    - name: Build the image (TAG specified as input)
+      run: |
+        buildah build \
+          -t jfrog.dev.hub.vwgroup.com/amt-docker-releases/github.com-test/artifactory:1.0 \
+          --format=docker \
+          -f Dockerfile .
+    - name: List the docker images
+      run: buildah images
+      
+    - name: Run buildah push
+      run:  buildah push "jfrog.dev.hub.vwgroup.com/amt-docker-releases/github.com-test/artifactory:1.0"
