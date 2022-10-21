@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+
+env:
+  GITHUB_ACTOR: ${{ github.actor }}
+  GITHUB_TOKEN: ${{ secrets.ARCHE_GITHUB_PKG_REGISTRY }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and upload arche docker image
+    outputs:
+      image-version: ${{ steps.meta.outputs.version }}
+    steps:
+      - name: Login to JFrog
+        uses: docker/login-action@v1.9.0
+        with:
+          registry: jfrog.dev.hub.vwgroup.com
+          username: ${{ secrets.JFROG_DEPLOY_USER }}
+          password: ${{ secrets.JFROG_DEPLOY_TOKEN }}
+      - name: Build and push docker image
+        uses: docker/build-push-action@v2.4.0
+        with:
+          file: Dockerfile
+          context: .
+          build-args: |
+            BUILD_DIR=build
+          push: true
+          tags: jfrog.dev.hub.vwgroup.com/amt-docker-internal/jfrog/artifactory:test
