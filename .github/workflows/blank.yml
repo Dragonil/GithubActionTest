@@ -18,11 +18,10 @@ jobs:
           registry: jfrog.dev.hub.vwgroup.com
           username: ${{ secrets.JFROG_DEPLOY_USER }}
           password: ${{ secrets.JFROG_DEPLOY_TOKEN }}
+
       - name: Build and push docker image
         uses: docker/build-push-action@v2.4.0
         with:
           file: Dockerfile
-          build-args: |
-            BUILD_DIR=build
           push: true
           tags: jfrog.dev.hub.vwgroup.com/amt-docker-internal/jfrog/artifactory:test
