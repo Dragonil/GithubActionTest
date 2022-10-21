@@ -31,7 +31,7 @@ jobs:
           
       - name: Import tag in containerd
         run: |
-          sudo ctr i tag artifactory-pro:7.46.6 jfrog.dev.hub.vwgroup.com/amt-docker-internal/github.com-test/artifactory:1.0
+          sudo ctr i tag releases-docker.jfrog.io/jfrog/artifactory-pro:7.46.6 jfrog.dev.hub.vwgroup.com/amt-docker-internal/github.com-test/artifactory:1.0
       - name: Push image with containerd
         run: |
           sudo ctr --debug i push --user "${{ secrets.JFROG_DEPLOY_USER }}:${{ secrets.JFROG_DEPLOY_TOKEN }}" jfrog.dev.hub.vwgroup.com/amt-docker-internal/github.com-test/artifactory:1.0
