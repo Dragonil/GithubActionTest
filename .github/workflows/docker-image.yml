@@ -27,9 +27,14 @@ jobs:
         docker build \
           -t jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0 \
           -f Dockerfile .
-          
+    - name: List the docker images
+      run: docker save --output artifactory.tar jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0
+    
+    - name: import the docker images
+      run: sudo ctr i import --base-name jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory --digests --all-platforms artifactory.tar
+    
     - name: List the docker images
       run: sudo ctr images ls
 
     - name: Run buildah push
-      run: docker push "jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0"
+      run: ctr push "jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0"
