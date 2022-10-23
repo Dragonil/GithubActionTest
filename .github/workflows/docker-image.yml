@@ -37,4 +37,4 @@ jobs:
       run: sudo ctr images ls
 
     - name: Run buildah push
-      run: sudo ctr --debug i push --user "${{ secrets.JFROG_DEPLOY_USER }}:${{ secrets.JFROG_DEPLOY_TOKEN }}" "jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0"
+      run: sudo ctr i push --user "${{ secrets.JFROG_DEPLOY_USER }}:${{ secrets.JFROG_DEPLOY_TOKEN }}" "jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:1.0"
