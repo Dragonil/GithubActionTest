@@ -30,6 +30,15 @@ jobs:
     - name: List the docker images
       run: docker save --output artifactory.tar jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:latest
     
+    - name: Extract docker
+      run: tar xf artifactory.tar
+    
+    - run: ls
+    
+    - run: sha256sum manifest.json
+    
+    - run: cat manifest.json
+    
     - name: Docker check manifest
       run: docker manifest inspect jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:latest
     
