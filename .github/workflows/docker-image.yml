@@ -30,11 +30,11 @@ jobs:
     - name: List the docker images
       run: docker save --output artifactory.tar jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:latest
     
-    - name: Docker check manifest
-      run: docker manifest inspect jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:latest
+   # - name: Docker check manifest
+   #   run: docker manifest inspect jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:latest
     
     - name: import the docker images
-      run: sudo ctr i import --base-name jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory --digests --all-platforms artifactory.tar
+      run: sudo ctr i import --base-name jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory --all-platforms artifactory.tar
     
     - name: List the docker images
       run: sudo ctr images ls
