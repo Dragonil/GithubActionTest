@@ -38,9 +38,7 @@ jobs:
     - run: sha256sum manifest.json
     
     - run: cat manifest.json
-    
-    - name: Docker check manifest
-      run: docker manifest inspect jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory:latest
+
     
     - name: import the docker images
       run: sudo ctr i import --base-name jfrog.dev.hub.vwgroup.com/amt-docker-releases/test/artifactory --all-platforms artifactory.tar
